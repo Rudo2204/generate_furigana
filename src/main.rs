@@ -27,7 +27,7 @@ fn main() -> Result<()> {
                 .index(2)
                 .short("b")
                 .long("bold")
-                .value_name("TEXT")
+                .value_name("HIGHLIGHT")
                 .takes_value(true),
         )
         .get_matches();
