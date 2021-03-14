@@ -1,0 +1,19 @@
+[package]
+name = "generate_furigana"
+version = "0.1.0"
+authors = ["Rudo2204 <rudo2204@gmail.com>"]
+edition = "2018"
+description = "Quick and dirty program to generate ruby markup furigana reading"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+difference = "2.0.0"
+anyhow = "1"
+clap = "2.33"
+regex = "1"
+kanji = "1"
+
+[[bin]]
+name = "gf"
+path = "src/main.rs"
