@@ -1,0 +1,39 @@
+# https://github.com/rust-lang/rust/blob/master/.github/workflows/ci.yml
+# https://github.com/launchbadge/sqlx/blob/master/.github/workflows/sqlx.yml
+# https://github.com/dh1tw/remoteAudio/blob/master/.github/workflows/build.yml
+# https://github.com/actions-rs
+# TODO: Set CRATE_NAME to match the project name
+name: CI
+env:
+  CRATE_NAME: generate_furigana
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    name: CI Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-check-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-check-
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --locked
